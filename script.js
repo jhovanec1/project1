@@ -7,7 +7,13 @@ const blue = document.querySelector('#downright');
 const gameButton = document.querySelector('#circle');
 const startButton = document.querySelector('#start');
 const playerButton = document.querySelector('#play1');
+const levelDiv = document.querySelector('#level');
+const levelDisplay = document.querySelector('p2');
+// console.log(levelDisplay);
+
+
 window.addEventListener('load', startTimer);
+
 // startButton.addEventListener('click', gamePlay)
 
 
@@ -16,7 +22,7 @@ var boardLights = [red, green, yellow, blue];
 let count = 0;
 let countTop = 0;
 let levelNum = 1;
-let level = 5*levelNum; 
+let level = 5* levelNum; 
 let levelArray = [];
 
 // Starts the start up sequence upon clicking START button in window
@@ -66,15 +72,15 @@ function startTimer(){
 // Length of array is determined by the level. Additionally level will control timing.
 
 function randomizer(){
+    level = 5* levelNum;
     for(i=0;i<level;i++){
         levelArray.push(Math.floor(Math.random()*4)+1);
-        
     }
     gamePlay(levelArray);
 }
 
 function gamePlay(levelArray) {
-        
+        levelDisplay.innerHTML = levelNum;
         levelArray.forEach(function(j, index){setTimeout(function(){
             if(j===1){
                 red.style.opacity = "1.0";
@@ -128,24 +134,35 @@ green.addEventListener('click', ()=>{answerArray.push(2); console.log(answerArra
 
 function nextLevel(){
     levelArray = [];
-    level ++;
+    answerArray = [];
+    levelNum ++;
     score = 0;
+    console.log('next level initiated')
+}
+function loser(){
+    levelNum = 1;
+    score = 0;
+    answerArray = [];
+    levelArray = [];
 }
 
 
 let score = 0;
 function checkInput(){
-    for(let i = 0;i<answerArray.length; i++){
-        
-        if(score === levelArray.length){
-            // nextLevel();
-            console.log('win');
-        }else if(answerArray[i] === levelArray[i]){
-            score ++;
-            console.log(score);
-        }else{
-            console.log('no');
-        }
+    if(score === levelArray.length){
+        nextLevel();
+        alert('You won this round.')
+    }else{(score<levelArray.length)
+        for(let i = score;i<answerArray.length; i++){
+            if(answerArray[i] === levelArray[i]){
+                score ++;
+                console.log(score);
+            }else{
+                console.log('no');
+                alert('You blew it');
+                loser();
+            }}
     }
+
 }
 circle.addEventListener('click', checkInput)
