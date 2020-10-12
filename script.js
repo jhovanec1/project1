@@ -4,29 +4,40 @@ const red = document.querySelector('#upleft');
 const green = document.querySelector('#upright');
 const yellow = document.querySelector('#downleft');
 const blue = document.querySelector('#downright');
-
+const gameButton = document.querySelector('#circle');
 const startButton = document.querySelector('#start');
 const playerButton = document.querySelector('#play1');
-startButton.addEventListener('click', startTimer);
-// playerButton.addEventListener('click',stopTimerStart);
+window.addEventListener('load', startTimer);
+// startButton.addEventListener('click', gamePlay)
+
 
 
 var boardLights = [red, green, yellow, blue];
 let count = 0;
 let countTop = 0;
-let level = 10; 
+let levelNum = 1;
+let level = 5*levelNum; 
 let levelArray = [];
 
 // Starts the start up sequence upon clicking START button in window
+function resetColors(){
+    setTimeout( function() {
+    red.style.opacity = ".2";
+    yellow.style.opacity = ".2";
+    blue.style.opacity = ".2";
+    green.style.opacity = ".2";
+    }, 200);
+}
 
 function startTimer(){
     let startTime = setInterval(function(){
         if(countTop === 30 || countTop === 31){
-            clearInterval(startTime);
             red.style.opacity = ".2";
             yellow.style.opacity = ".2";
             blue.style.opacity = ".2";
             green.style.opacity = ".2";
+            resetColors();
+            clearInterval(startTime);
         }
             if(count<1){
                 red.style.opacity = "1.0";
@@ -46,7 +57,8 @@ function startTimer(){
                 count = 0;
             } 
             countTop ++;
-            console.log(countTop);   
+            // console.log(countTop);
+            // console.log(count);   
     },100);
 }
 
@@ -58,9 +70,8 @@ function randomizer(){
         levelArray.push(Math.floor(Math.random()*4)+1);
         
     }
+    gamePlay(levelArray);
 }
-randomizer();
-
 
 function gamePlay(levelArray) {
         
@@ -71,6 +82,7 @@ function gamePlay(levelArray) {
                 green.style.opacity = ".2";
                 blue.style.opacity = ".2";
                 console.log('red')
+                resetColors();
                 i ++;
             }else if(j===2){
                 red.style.opacity = ".2";
@@ -78,6 +90,7 @@ function gamePlay(levelArray) {
                 green.style.opacity = "1.0";
                 blue.style.opacity = ".2";
                 console.log('green');
+                resetColors();
                 i ++;
             }else if(j===3){
                 red.style.opacity = ".2";
@@ -85,6 +98,7 @@ function gamePlay(levelArray) {
                 green.style.opacity = ".2";
                 blue.style.opacity = "1.0";
                 console.log('blue');
+                resetColors();
                 i ++;
             }else if(j===4){
                 red.style.opacity = ".2";
@@ -92,17 +106,46 @@ function gamePlay(levelArray) {
                 green.style.opacity = ".2";
                 blue.style.opacity = ".2";
                 console.log('yellow');
+                resetColors();
                 i ++;
             }
         
-        }, 500* index);
+        }, 800* index);
     });
     }
 
-gamePlay(levelArray);
+startButton.addEventListener('click', randomizer);
+console.log(levelArray);
+answerArray = [];
 
-// var intervalId = setInterval(function(){
-//     var timoutId = setTimeout(function(){ 
-//         console.log("wait for me!");
-//     }, 1000);
-//  }, 1000);
+
+
+red.addEventListener('click', ()=>{answerArray.push(1); console.log(answerArray)});
+blue.addEventListener('click', ()=>{answerArray.push(3); console.log(answerArray)});
+yellow.addEventListener('click', ()=>{answerArray.push(4); console.log(answerArray)});
+green.addEventListener('click', ()=>{answerArray.push(2); console.log(answerArray)});
+
+
+function nextLevel(){
+    levelArray = [];
+    level ++;
+    score = 0;
+}
+
+
+let score = 0;
+function checkInput(){
+    for(let i = 0;i<answerArray.length; i++){
+        
+        if(score === levelArray.length){
+            // nextLevel();
+            console.log('win');
+        }else if(answerArray[i] === levelArray[i]){
+            score ++;
+            console.log(score);
+        }else{
+            console.log('no');
+        }
+    }
+}
+circle.addEventListener('click', checkInput)
