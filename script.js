@@ -97,6 +97,7 @@ function flashStart(){
 // Length of array is determined by the level. Additionally level will control timing.
 
 function randomizer(){
+    answerArray = [];
     isGameStarted = true;
     level = 5+ levelNum;
     for(i=0;i<level;i++){
@@ -109,6 +110,7 @@ function randomizer(){
 function gamePlay(levelArray) {
         levelDisplay.innerHTML = levelNum;
         pointDisplay.innerHTML = points;
+        circle.addEventListener('click', checkInput, true);
         // console.log(timeChange);
         startButton.removeEventListener('click',randomizer, true)
         levelArray.forEach(function(j, index){setTimeout(function(){
@@ -189,12 +191,12 @@ function loser(){
 
 let score = 0;
 function checkInput(){
-    if(score === levelArray.length){
+    if(score === levelArray.length&&levelArray.length!==0){
         points = points + (10*score);
         nextLevel();
         // console.log(points);
         alert('You won this round. Press start to continue.')
-    }else{(score<levelArray.length)
+    }else if(score<levelArray.length&&levelArray.length!==0){
         for(let i = score;i<answerArray.length; i++){
             if(answerArray[i] === levelArray[i]){
                 score ++;
@@ -202,7 +204,8 @@ function checkInput(){
             }else{
                 alert('You blew it. Press start to start over.');
                 loser();
-            }}
-        }
+                console.log(levelArray.length);
+            }
+        }}
 }
-circle.addEventListener('click', checkInput)
+circle.addEventListener('click', checkInput);
