@@ -87,7 +87,7 @@ h1{
     left: 100px;
     top: 250px;
 }
-h2{
+h2,h3{
     color: white;
     text-align: center;
     /* border-style: solid; */
@@ -96,7 +96,7 @@ h2{
     padding: 50px;
     border-radius: 20%;
 }
-p2{
+p2,p3{
     color: white;
     text-align: center;
     font-size: 35px;
@@ -116,3 +116,8 @@ p2{
     border-radius: 50%;
     
 }
+/* #start{
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+} */
