@@ -10,11 +10,12 @@ const playerButton = document.querySelector('#play1');
 const levelDiv = document.querySelector('#level');
 const levelDisplay = document.querySelector('p2');
 const pointDisplay = document.querySelector('p3');
+
 // console.log(pointDisplay);
 
 
 window.addEventListener('load', startTimer);
-
+window.addEventListener('load', flashStart);
 // startButton.addEventListener('click', gamePlay)
 
 
@@ -27,6 +28,7 @@ let level = 5* levelNum;
 let levelArray = [];
 let timeChange = 1;
 let points = 0;
+let isGameStarted = false;
 
 // Starts the start up sequence upon clicking START button in window
 function resetColors(){
@@ -71,10 +73,28 @@ function startTimer(){
     },100);
 }
 
+function flashStart(){
+    let flasher = 0;
+        setInterval(function(){
+            if(isGameStarted===false){
+            if(flasher%2 ===0){
+                startButton.style.background = 'red';
+                flasher ++;
+                // console.log(flasher);
+            }else{
+                startButton.style.background = 'grey';
+                flasher ++;
+                // console.log(flasher);
+            }
+        }
+    }, 800)
+}
+
 //Creates array which will be converted to colors and then ran through visual function. 
 // Length of array is determined by the level. Additionally level will control timing.
 
 function randomizer(){
+    isGameStarted = true;
     level = 5+ levelNum;
     for(i=0;i<level;i++){
         levelArray.push(Math.floor(Math.random()*4)+1);
@@ -85,7 +105,8 @@ function randomizer(){
 function gamePlay(levelArray) {
         levelDisplay.innerHTML = levelNum;
         pointDisplay.innerHTML = points;
-        console.log(timeChange);
+        // console.log(timeChange);
+        startButton.removeEventListener('click',randomizer, true)
         levelArray.forEach(function(j, index){setTimeout(function(){
             if(j===1){
                 red.style.opacity = "1.0";
@@ -125,7 +146,7 @@ function gamePlay(levelArray) {
     });
     }
 
-startButton.addEventListener('click', randomizer);
+startButton.addEventListener('click', randomizer, true);
 console.log(levelArray);
 answerArray = [];
 
@@ -142,15 +163,19 @@ function nextLevel(){
     answerArray = [];
     levelNum ++;
     score = 0;
-    points = points + (10*score);
-    console.log('next level initiated')
+    // console.log('next level initiated')
     timeChange = timeChange * .9;
+    isGameStarted = false;
+    startButton.addEventListener('click', randomizer,true);
 }
 function loser(){
     levelNum = 1;
     score = 0;
     answerArray = [];
     levelArray = [];
+    points = 10;
+    isGameStarted = false;
+    startButton.addEventListener('click', randomizer,true);
 }
 
 
@@ -158,15 +183,17 @@ let score = 0;
 function checkInput(){
     setTimeout(function(){
     if(score === levelArray.length){
+        points = points + (10*score);
         nextLevel();
+        // console.log(points);
         alert('You won this round. Press start to continue.')
     }else{(score<levelArray.length)
         for(let i = score;i<answerArray.length; i++){
             if(answerArray[i] === levelArray[i]){
                 score ++;
-                console.log(score);
+                // console.log(score);
             }else{
-                console.log('no');
+                // console.log('no');
                 alert('You blew it. Press start to start over.');
                 loser();
             }}
