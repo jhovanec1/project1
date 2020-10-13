@@ -1,4 +1,5 @@
 
+// Defines all of the elements that will be adjusted in the game
 
 const red = document.querySelector('#upleft');
 const green = document.querySelector('#upright');
@@ -16,7 +17,7 @@ const pointDisplay = document.querySelector('p3');
 
 window.addEventListener('load', startTimer);
 window.addEventListener('load', flashStart);
-// startButton.addEventListener('click', gamePlay)
+
 
 
 
@@ -30,7 +31,7 @@ let timeChange = 1;
 let points = 0;
 let isGameStarted = false;
 
-// Starts the start up sequence upon clicking START button in window
+
 function resetColors(){
     setTimeout( function() {
     red.style.opacity = ".3";
@@ -40,6 +41,7 @@ function resetColors(){
     }, 200);
 }
 
+// Starts the start up sequence upon clicking START button in window
 function startTimer(){
     let startTime = setInterval(function(){
         if(countTop === 30 || countTop === 31){
@@ -72,6 +74,7 @@ function startTimer(){
             // console.log(count);   
     },100);
 }
+// Function for activating/controlling START button background color flash
 
 function flashStart(){
     let flasher = 0;
@@ -101,6 +104,7 @@ function randomizer(){
     }
     gamePlay(levelArray);
 }
+// Main function for controlling game display. Runs the sequence created in randomizer()
 
 function gamePlay(levelArray) {
         levelDisplay.innerHTML = levelNum;
@@ -146,18 +150,19 @@ function gamePlay(levelArray) {
     });
     }
 
+// Initiates game and functions off click of the START button
 startButton.addEventListener('click', randomizer, true);
 console.log(levelArray);
 answerArray = [];
 
 
+// Pushes player inputs into answerArray which is then compared to gameArray
+red.addEventListener('click', ()=>{answerArray.push(1); checkInput(); console.log(answerArray)});
+blue.addEventListener('click', ()=>{answerArray.push(3); checkInput(); console.log(answerArray)});
+yellow.addEventListener('click', ()=>{answerArray.push(4); checkInput();console.log(answerArray)});
+green.addEventListener('click', ()=>{answerArray.push(2); checkInput();console.log(answerArray)});
 
-red.addEventListener('click', ()=>{answerArray.push(1); console.log(answerArray)});
-blue.addEventListener('click', ()=>{answerArray.push(3); console.log(answerArray)});
-yellow.addEventListener('click', ()=>{answerArray.push(4); console.log(answerArray)});
-green.addEventListener('click', ()=>{answerArray.push(2); console.log(answerArray)});
-
-
+// Function used when level is won, initiates next level
 function nextLevel(){
     levelArray = [];
     answerArray = [];
@@ -168,6 +173,8 @@ function nextLevel(){
     isGameStarted = false;
     startButton.addEventListener('click', randomizer,true);
 }
+// Function used when level is lost, resets points and levels. Initiates reset game
+
 function loser(){
     levelNum = 1;
     score = 0;
@@ -178,10 +185,10 @@ function loser(){
     startButton.addEventListener('click', randomizer,true);
 }
 
+// Function to compare user input vs random level array. 
 
 let score = 0;
 function checkInput(){
-    setTimeout(function(){
     if(score === levelArray.length){
         points = points + (10*score);
         nextLevel();
@@ -193,11 +200,9 @@ function checkInput(){
                 score ++;
                 // console.log(score);
             }else{
-                // console.log('no');
                 alert('You blew it. Press start to start over.');
                 loser();
             }}
-        }},100)
-
+        }
 }
 circle.addEventListener('click', checkInput)

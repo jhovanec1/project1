@@ -7,15 +7,17 @@ body {
 
 h1{
     display: grid;
+    font-family: 'Notable', sans-serif;
     grid-row: 1;
     grid-column: 2;
     color: white;
     text-align: center;
-    border-style: solid;
+    /* border-style: solid; */
     border-color: white;
     margin:auto;
-    padding: 50px;
+    padding: 30px;
     border-radius: 20%;
+    font-size: 100px;
     
 }
 
@@ -131,4 +133,13 @@ p2,p3{
 }
 #start{
     font-size: 30px;
+}
+footer{
+    display: grid;
+    color: white;
+    grid-row: 3;
+    grid-column: 3;
+    align-self: end;
+    justify-self: center;
+    
 }
