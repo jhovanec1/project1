@@ -28,13 +28,13 @@ let countTop = 0;
 let levelNum = [1,1];
 let level = 5* levelNum; 
 let levelArray = [];
-let timeChange = 1;
+let timeChange = [1,1];
 let points = [0,0];
 let isGameStarted = false;
 let isNumPlayers = false;
 let player1 = 0;
 let player2 = 0; 
-let whichPlayer = 1;
+let whichPlayer = 0;
 
 // Using player buttons to change values and colors
 player1Button.addEventListener('click', ()=> {player1 = 1; player2 = 0 ;
@@ -130,7 +130,7 @@ function flashPlayers(){
 function randomizer(){
     answerArray = [];
     isGameStarted = true;
-    level = 5+ levelNum;
+    level = 5+ levelNum[whichPlayer];
     for(i=0;i<level;i++){
         levelArray.push(Math.floor(Math.random()*4)+1);
     }
@@ -139,8 +139,8 @@ function randomizer(){
 // Main function for controlling game display. Runs the sequence created in randomizer()
 
 function gamePlay(levelArray) {
-        levelDisplay.innerHTML = levelNum;
-        pointDisplay.innerHTML = points;
+        levelDisplay.innerHTML = levelNum[whichPlayer];
+        pointDisplay.innerHTML = points[whichPlayer];
         circle.addEventListener('click', checkInput, true);
         // console.log(timeChange);
         startButton.removeEventListener('click',randomizer, true)
@@ -179,7 +179,7 @@ function gamePlay(levelArray) {
                 i ++;
             }
         
-        }, 1200* index* timeChange);
+        }, 1200* index* timeChange[whichPlayer]);
     });
     }
 
@@ -202,20 +202,42 @@ function nextLevel(){
     levelNum[whichPlayer] ++;
     score = 0;
     // console.log('next level initiated')
-    timeChange = timeChange * .9;
+    timeChange[whichPlayer] = timeChange[whichPlayer] * .9;
     isGameStarted = false;
     startButton.addEventListener('click', randomizer,true);
+    if(whichPlayer === 0&&player1===1&&player2===1){
+        player1Button.style.background = 'grey';
+        player2Button.style.background = 'white';
+        whichPlayer = 1;
+    }else if(whichPlayer===1){
+        player1Button.style.background = 'white';
+        player2Button.style.background = 'grey';
+        whichPlayer = 0;
+    }else if(whichPlayer ===0){
+        whichPlayer = 0;
+    }
 }
 // Function used when level is lost, resets points and levels. Initiates reset game
 
 function loser(){
-    levelNum = 1;
+    levelNum[whichPlayer] = 1;
     score = 0;
     answerArray = [];
     levelArray = [];
-    points = 10;
+    points[whichPlayer] = 10;
     isGameStarted = false;
     startButton.addEventListener('click', randomizer,true);
+    if(whichPlayer === 0&&player1===1&&player2===1){
+        player1Button.style.background = 'grey';
+        player2Button.style.background = 'white';
+        whichPlayer = 1;
+    }else if(whichPlayer===1){
+        player1Button.style.background = 'white';
+        player2Button.style.background = 'grey';
+        whichPlayer = 0;
+    }else if(whichPlayer ===0){
+        whichPlayer = 0;
+    }
 }
 
 // Function to compare user input vs random level array. 
@@ -223,7 +245,7 @@ function loser(){
 let score = 0;
 function checkInput(){
     if(score === levelArray.length&&levelArray.length!==0){
-        points = points + (10*score);
+        points[whichPlayer] = points[whichPlayer] + (10*score);
         nextLevel();
         // console.log(points);
         alert('You won this round. Press start to continue.')
