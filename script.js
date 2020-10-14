@@ -139,6 +139,7 @@ function randomizer(){
 // Main function for controlling game display. Runs the sequence created in randomizer()
 
 function gamePlay(levelArray) {
+        console.log(playerDisplay)
         levelDisplay.innerHTML = levelNum[whichPlayer];
         pointDisplay.innerHTML = points[whichPlayer];
         circle.addEventListener('click', checkInput, true);
