@@ -156,6 +156,7 @@ footer{
     h1{
         font-size: 100px;
         text-align: center;
+        padding: none;
     }
     #center,circle{
         text-align: center;
@@ -167,7 +168,14 @@ footer{
     }
     #level{
         order: 400;
-        display: inline;
+        /* display: inline; */
+        position: static;
+        float: top;
+        padding: none;
+    
         /* text-align: center; */
+    }
+    h2,h3{
+        padding:10px;
     }
 }
