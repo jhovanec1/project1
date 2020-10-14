@@ -12,6 +12,7 @@ const player2Button = document.querySelector('#play2');
 const levelDiv = document.querySelector('#level');
 const levelDisplay = document.querySelector('p2');
 const pointDisplay = document.querySelector('p3');
+const playerDisplay = document.querySelector('h4');
 
 // console.log(pointDisplay);
 
@@ -21,19 +22,27 @@ window.addEventListener('load', flashStart);
 window.addEventListener('load',flashPlayers);
 
 
-
-
 var boardLights = [red, green, yellow, blue];
 let count = 0;
 let countTop = 0;
-let levelNum = 1;
+let levelNum = [1,1];
 let level = 5* levelNum; 
 let levelArray = [];
 let timeChange = 1;
-let points = 0;
+let points = [0,0];
 let isGameStarted = false;
-let isNumPlayers = false; 
+let isNumPlayers = false;
+let player1 = 0;
+let player2 = 0; 
+let whichPlayer = 1;
 
+// Using player buttons to change values and colors
+player1Button.addEventListener('click', ()=> {player1 = 1; player2 = 0 ;
+    isNumPlayers=true; player1Button.style.background = 'white';player2Button.style.background = 'grey';
+    playerDisplay.innerHTML = 'ONE PLAYER MODE'});
+player2Button.addEventListener('click', ()=> {player1 = 1; player2 = 1 ;
+    isNumPlayers=true; player1Button.style.background = 'white';player2Button.style.background = 'grey'
+    playerDisplay.innerHTML = 'TWO PLAYER MODE'});
 
 function resetColors(){
     setTimeout( function() {
@@ -116,7 +125,7 @@ function flashPlayers(){
 }
 
 //Creates array which will be converted to colors and then ran through visual function. 
-// Length of array is determined by the level. Additionally level will control timing.
+//Length of array is determined by the level. Additionally level will control timing.
 
 function randomizer(){
     answerArray = [];
@@ -190,7 +199,7 @@ green.addEventListener('click', ()=>{answerArray.push(2); checkInput();console.l
 function nextLevel(){
     levelArray = [];
     answerArray = [];
-    levelNum ++;
+    levelNum[whichPlayer] ++;
     score = 0;
     // console.log('next level initiated')
     timeChange = timeChange * .9;

@@ -1,6 +1,6 @@
 @media screen and (max-width:700px) {
     body{
-        display:flex;
+        display: block;
         flex-direction: column;
         flex-wrap:wrap;
     }
@@ -11,7 +11,7 @@
         
     }
     #controls{
-        display: inline;
+        display: block;
         order: 100;
         
     }
