@@ -7,7 +7,8 @@ const yellow = document.querySelector('#downleft');
 const blue = document.querySelector('#downright');
 const gameButton = document.querySelector('#circle');
 const startButton = document.querySelector('#start');
-const playerButton = document.querySelector('#play1');
+const player1Button = document.querySelector('#play1');
+const player2Button = document.querySelector('#play2');
 const levelDiv = document.querySelector('#level');
 const levelDisplay = document.querySelector('p2');
 const pointDisplay = document.querySelector('p3');
@@ -17,6 +18,7 @@ const pointDisplay = document.querySelector('p3');
 
 window.addEventListener('load', startTimer);
 window.addEventListener('load', flashStart);
+window.addEventListener('load',flashPlayers);
 
 
 
@@ -30,6 +32,7 @@ let levelArray = [];
 let timeChange = 1;
 let points = 0;
 let isGameStarted = false;
+let isNumPlayers = false; 
 
 
 function resetColors(){
@@ -91,6 +94,25 @@ function flashStart(){
             }
         }
     }, 800)
+}
+
+//Function for flashing Player Buttons
+
+function flashPlayers(){
+    let flasher = 0;
+    setInterval(function(){
+        if(isNumPlayers===false){
+            if(flasher%2===0){
+                player1Button.style.background = 'white';
+                player2Button.style.background = 'grey';
+                flasher ++;
+            }else{
+                player2Button.style.background = 'white';
+                player1Button.style.background = 'grey';
+                flasher ++;
+            }
+        }
+    }, 900)
 }
 
 //Creates array which will be converted to colors and then ran through visual function. 
