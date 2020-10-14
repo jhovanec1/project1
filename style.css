@@ -8,7 +8,7 @@
         font-size: 40px;
     }
     #center,circle{
-        
+        text-align: center;
     }
     #controls{
         display: block;
@@ -16,7 +16,7 @@
         
     }
     #level{
-        order: 1;
+        order: 500;
         display: inline;
     }
 }

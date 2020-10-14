@@ -14,8 +14,6 @@ const levelDisplay = document.querySelector('p2');
 const pointDisplay = document.querySelector('p3');
 const playerDisplay = document.querySelector('h4');
 
-// console.log(pointDisplay);
-
 
 window.addEventListener('load', startTimer);
 window.addEventListener('load', flashStart);
@@ -53,7 +51,7 @@ function resetColors(){
     }, 200);
 }
 
-// Starts the start up sequence upon clicking START button in window
+// Starts the start up sequence once window is opened
 function startTimer(){
     let startTime = setInterval(function(){
         if(countTop === 30 || countTop === 31){
@@ -139,7 +137,6 @@ function randomizer(){
 // Main function for controlling game display. Runs the sequence created in randomizer()
 
 function gamePlay(levelArray) {
-        console.log(playerDisplay)
         levelDisplay.innerHTML = levelNum[whichPlayer];
         pointDisplay.innerHTML = points[whichPlayer];
         circle.addEventListener('click', checkInput, true);
