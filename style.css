@@ -1,3 +1,27 @@
+@media screen and (max-width:700px) {
+    body{
+        display:flex;
+        flex-direction: column;
+        flex-wrap:wrap;
+    }
+    h1{
+        font-size: 40px;
+    }
+    #center,circle{
+        
+    }
+    #controls{
+        display: inline;
+        order: 100;
+        
+    }
+    #level{
+        order: 1;
+        display: inline;
+    }
+}
+
+
 body {
     background: black;
     display: grid;
